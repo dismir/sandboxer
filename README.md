@@ -38,7 +38,9 @@ Execution:
 ### Overriding configuration
 
 Providing `-j` or `--job_name` will override `job_name` from config file.
+
 Providing `-s` or `--sandbox_name` will override `sandbox_name` from config file.
+
 Providing `-b` or `--branch_name` will override current git branch name.
 
 Example:
