@@ -3,6 +3,6 @@
   :sandbox_name: sandbox_name
 
 :jenkins:
-  :server_url: 'https://jenkins-win.sample.com'
+  :server_url: 'https://jenkins.sample.com'
   :username: 'username'
   :password: 'password'

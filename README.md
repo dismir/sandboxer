@@ -1,28 +1,49 @@
 # Sandboxer
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/sandboxer`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Simple gem to manage some of Jenkins builds via CLI. It deploys your current git branch to sandbox specified in the configuration. Target sandbox or branch name can be overriden by CLI command attributes.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'sandboxer'
+gem 'sandboxer', git: 'https://github.com/dismir/sandboxer.git'
 ```
 
 And then execute:
 
     $ bundle
 
-Or install it yourself as:
-
-    $ gem install sandboxer
-
 ## Usage
 
-TODO: Write usage instructions here
+In `config` folder of project create `sandboxer.yml` config file with such fields
+
+```yaml
+:sandboxer:
+  :job_name: job_name                       # Project/Job prefix name
+  :sandbox_name: sandbox_name               # Sandbox/Job name
+
+:jenkins:
+  :server_url: 'https://jenkins.sample.com' # URL to Jenkins
+  :username: 'username'                     # Your Jenkins username
+  :password: 'password'                     # Your Jenkins password
+```
+
+Add `config/sandboxer.yml` to the `.gitignore` file to avoid pushing it to project branch.
+
+Execution:
+
+    $ sandboxer
+
+### Overriding configuration
+
+Providing `-j` or `--job_name` will override `job_name` from config file.
+Providing `-s` or `--sandbox_name` will override `sandbox_name` from config file.
+Providing `-b` or `--branch_name` will override current git branch name.
+
+Example:
+
+    $ sandboxer -j my_job -s my_sandbox -b master
 
 ## Development
 
