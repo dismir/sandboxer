@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+require 'sandboxer/cli'
+require 'yaml'
+require 'jenkins_api_client'
+require 'git'
+require 'forwardable'
+
+Sandboxer::CLI.call

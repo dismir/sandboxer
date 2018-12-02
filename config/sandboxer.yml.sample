@@ -1,0 +1,8 @@
+:sandboxer:
+  :job_name: job_name
+  :sandbox_name: sandbox_name
+
+:jenkins:
+  :server_url: 'https://jenkins-win.sample.com'
+  :username: 'username'
+  :password: 'password'
