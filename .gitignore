@@ -11,3 +11,5 @@
 .rspec_status
 
 /config/sandboxer.yml
+
+/*.sublime-*

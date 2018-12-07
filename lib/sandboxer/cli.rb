@@ -7,15 +7,18 @@ module Sandboxer
     end
 
     def initialize
-      @cli_config = Hash[*ARGV]
       @config     = YAML.load_file(File.open('config/sandboxer.yml'))
       @client     = JenkinsApi::Client.new(config[:jenkins])
       @git        = Git.open(Dir.pwd)
     end
 
     def call
-      update_job
-      build_job
+      if ARGV.include?('-l') || ARGV.include?('--list')
+        list_jobs
+      else
+        update_job
+        build_job
+      end
     end
 
     private
@@ -32,6 +35,19 @@ module Sandboxer
 
     def build_job
       job.build(job_name, {}, options)
+    end
+
+    def list_jobs
+      jobs_list = job.list_all
+      jobs_list.map! { |env_job_name| job.list_details(env_job_name) }
+
+      jobs_list.each do |job|
+        puts job['name']
+
+        job['jobs'].each do |sub_job|
+          puts "  -j #{ job['name'] } -s #{ sub_job['name'] }"
+        end
+      end
     end
 
     def job_name
@@ -65,6 +81,10 @@ module Sandboxer
 
     def branch_name
       @branch_name ||= cli_config['-b'] || cli_config['--branch_name'] || current_branch
+    end
+
+    def cli_config
+      @cli_config ||= Hash[*ARGV]
     end
   end
 end
