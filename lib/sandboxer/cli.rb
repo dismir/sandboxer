@@ -76,7 +76,7 @@ module Sandboxer
     end
 
     def updated_execute_shell
-      execute_shell.text.sub(/github_branch=.* /, "github_branch=#{ branch_name } ")
+      execute_shell.text.sub(/github_branch=.* build_user/, "github_branch=#{ branch_name } build_user")
     end
 
     def branch_name
